@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>TaskFlow - Your Productivity Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-indigo-800 flex items-center">
+                    <i class="fas fa-tasks mr-2"></i> TaskFlow
+                </h1>
+                <p class="text-slate-600">Your productivity companion</p>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-indigo-100 text-indigo-600">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div id="stats" class="hidden md:flex items-center space-x-4 bg-white px-4 py-2 rounded-full shadow-sm">
+                    <div class="text-center">
+                        <div class="text-sm text-slate-500">Tasks</div>
+                        <div id="total-tasks" class="font-bold">0</div>
+                    </div>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <div class="text-center">
+                        <div class="text-sm text-slate-500">Completed</div>
+                        <div id="completed-tasks" class="font-bold">0</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Add Task Form -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6 transition-all duration-300 hover:shadow-lg">
+            <form id="task-form" class="flex flex-col md:flex-row gap-4">
+                <div class="flex-grow">
+                    <input 
+                        type="text" 
+                        id="task-input" 
+                        placeholder="What needs to be done?" 
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        required
+                    >
+                </div>
+                <div class="flex items-center gap-2">
+                    <select id="priority-select" class="px-3 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <button 
+                        type="submit" 
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center"
+                    >
+                        <i class="fas fa-plus mr-2"></i> Add Task
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Task Filters -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex space-x-2 overflow-x-auto pb-2">
+                <button data-filter="all" class="filter-btn active px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-medium">All</button>
+                <button data-filter="active" class="filter-btn px-4 py-2 bg-white text-slate-700 rounded-full text-sm font-medium shadow-sm hover:bg-slate-50">Active</button>
+                <button data-filter="completed" class="filter-btn px-4 py-2 bg-white text-slate-700 rounded-full text-sm font-medium shadow-sm hover:bg-slate-50">Completed</button>
+                <button data-filter="high" class="filter-btn px-4 py-2 bg-white text-slate-700 rounded-full text-sm font-medium shadow-sm hover:bg-slate-50 flex items-center">
+                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span> High
+                </button>
+                <button data-filter="medium" class="filter-btn px-4 py-2 bg-white text-slate-700 rounded-full text-sm font-medium shadow-sm hover:bg-slate-50 flex items-center">
+                    <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Medium
+                </button>
+                <button data-filter="low" class="filter-btn px-4 py-2 bg-white text-slate-700 rounded-full text-sm font-medium shadow-sm hover:bg-slate-50 flex items-center">
+                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Low
+                </button>
+            </div>
+            <button id="clear-completed" class="text-sm text-slate-500 hover:text-indigo-600 whitespace-nowrap">
+                Clear completed
+            </button>
+        </div>
+
+        <!-- Task List -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div id="task-list" class="task-list max-h-96 overflow-y-auto">
+                <div id="empty-state" class="flex flex-col items-center justify-center py-12 text-slate-400">
+                    <i class="fas fa-clipboard-list text-5xl mb-4"></i>
+                    <p class="text-lg">No tasks yet</p>
+                    <p class="text-sm">Add a task to get started</p>
+                </div>
+                <!-- Tasks will be added here dynamically -->
+            </div>
+
+            <!-- Task Summary (Mobile) -->
+            <div class="md:hidden border-t border-slate-200 p-4 flex justify-between items-center text-sm text-slate-500">
+                <div>
+                    <span id="mobile-total-tasks">0</span> tasks
+                </div>
+                <div>
+                    <span id="mobile-completed-tasks">0</span> completed
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-sm text-slate-500">
+            <p>Drag and drop to reorder tasks</p>
+            <p class="mt-1">Double click to edit a task</p>
+        </footer>
+    </div>    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
